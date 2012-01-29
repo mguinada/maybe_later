@@ -1,6 +1,19 @@
 %html
   %head
     %title Maybe Later
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0'}
+    /[if IE]
+      %link{href:'css/ie.css', rel: 'stylesheet', type: 'text/css', media: 'screen'}
+    %link{href:'css/1140.css', rel: 'stylesheet', type: 'text/css', media: 'screen'}
+    %link{href:'css/styles.css', rel: 'stylesheet', type: 'text/css', media: 'screen'}
+    %script{src: 'js/css3-mediaqueries.js', type: 'text/javascript'}
     %body
-      .container
+      #menu
+        %a{href: '#'} action #1
+        %a{href: '#'} action #2
+        %a{href: '#'} action #3
+        %a{href: '#'} action #4
+      #header
+        %h1 Maybe later
+      #content
         = yield
