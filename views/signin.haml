@@ -1,0 +1,17 @@
+#signin-form
+  %form{id: 'signin', action: '/session/create', method: 'post'}
+    %fieldset
+      %caption Sign in
+      %ol
+        %li
+          %label{for: 'email'}
+            email
+          %input{id: 'email', name: 'email', class: 'required', type: 'text'}
+        %li
+          %label{for: 'password'}
+            password
+          %input{id: 'password', name: 'password', class: 'required', type: 'password'}
+    %fieldset
+      %ol
+        %li
+          %input{id: 'sign-in-button', value: 'Sign in', type: 'submit'}

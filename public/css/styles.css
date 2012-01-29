@@ -3,11 +3,8 @@
 /* ============================== */
 
 body {
-		font: normal 100% Helvetica, Arial, sans-serif;
-    line-height: 1.5em;
-    /*font: 13px/1.5 'Trebuchet MS', Arial, 'Liberation Sans', FreeSans, sans-serif;*/
-    /*font-size: 16px;*/
-    /*font: normal 100% Helvetica, Arial, sans-serif;*/
+	font: normal 100% Helvetica, Arial, sans-serif;
+  line-height: 1.5em;
 }
 
 h1, h2 {
@@ -27,6 +24,7 @@ ul {
     font-size: 0.875em;      /* 14px / 16px = 0.875em */
 }
 
+/* layout */
 #header {
 	padding: 1em;
 }
@@ -35,6 +33,13 @@ ul {
 	background-color: #000;
 	color: #aaa;
 	padding-left: 1em;
+}
+
+#session-display {
+  color: white;
+  float: right;
+  font-size: 0.75em;      /* 12px / 16px = 0.75em */
+  padding-right: 1em;
 }
 
 #menu a {
@@ -55,6 +60,95 @@ ul {
 #content div {
 	padding-bottom: 0.5em;
 }
+
+/* forms */
+form {
+  padding-right: 1em;
+}
+
+form fieldset {
+  margin-bottom: 10px;
+}
+
+form legend {
+  padding: 0 2px;
+  font-weight: bold;
+}
+
+form label {
+  display: inline-block;
+  line-height: 1.8;
+  vertical-align: top;
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  color: #5E5C5C;
+  font-size: 70%;
+}
+
+span.error {
+  margin-left: -45px;
+  display: inline-block;
+  color: #ed2222;
+  font-size: 70%;
+}
+
+form fieldset {
+  border: none;
+}
+
+form fieldset ol {
+  margin: 0;
+  padding: 0;
+}
+
+form fieldset li {
+  list-style: none;
+  padding: 5px;
+  margin:  0;
+  position: relative;
+}
+
+form input[type="text"], input[type="password"]{
+  border-width: 1px;
+  width: 300px;
+}
+
+form fieldset.buttons input[type="submit"] {
+  float: right;
+}
+
+/* flash */
+div.notice, div.alert, div.error, div.success {
+  color: white;
+  padding: 0.15em 0.15em 0.15em 0.75em;
+  font-weight: bold;
+}
+
+div.notice, div.alert, div.success {
+  opacity: 0.8;
+  -moz-opacity: 0.8;
+  filter:alpha(opacity=8);
+
+}
+
+div.notice {
+  background-color: black;
+}
+
+div.alert {
+  background-color: #ff4600;
+}
+
+div.error {
+  background-color: white;
+  color: #ff1100;
+}
+
+div.success {
+  background-color: #468847;
+}
+
 /* ============================= */
 /* ! Layout for mobile version   */
 /* ============================= */

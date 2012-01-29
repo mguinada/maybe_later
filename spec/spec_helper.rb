@@ -1,12 +1,6 @@
-require 'rubygems'
-require 'sinatra'
-require 'rspec'
+require './lib/boot.rb'
 
-$:.unshift File.expand_path(File.dirname(__FILE__)) + "/../lib"
-
-set :environment, :test
-disable :run
-require 'app'
+BootSequence.new(environment: 'test').execute
 
 require 'capybara'
 require 'capybara/dsl'
@@ -14,6 +8,10 @@ require 'capybara/dsl'
 RSpec.configure do |config|
   #Tell capybara of our application
   Capybara.app = Application
+
+  config.before(:each) do
+    User.delete_all
+  end
 
   config.include Capybara::DSL
 end
