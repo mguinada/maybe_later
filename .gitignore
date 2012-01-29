@@ -1,0 +1,14 @@
+.bundle
+.project
+.settings/
+.tmp_*
+.DS_Store
+.idea
+.rake_tasks~
+.rvmrc
+*.sublime-project
+*.sublime-workspace
+.sublime
+log/*.log
+tmp/**/*
+tmp/
