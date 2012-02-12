@@ -10,7 +10,9 @@ RSpec.configure do |config|
   Capybara.app = Application
 
   config.before(:each) do
-    User.delete_all
+    [Link, User].each do |m|
+      m.send :delete_all
+    end
   end
 
   config.include Capybara::DSL

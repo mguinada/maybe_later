@@ -1,0 +1,21 @@
+#new-link-form
+  %form{id: 'new-link', action: '/me/link/create', method: 'post'}
+    %fieldset
+      %caption New link
+      %ol
+        %li
+          %label{for: 'url'}
+            url
+          %input{id: 'url', name: 'url', class: 'required', type: 'text'}
+        %li
+          %label{for: 'title'}
+            title
+          %input{id: 'title', name: 'title', class: 'required', type: 'text'}
+        %li
+          %label{for: 'description'}
+            description
+          %textarea{id: 'description', name: 'description'}
+    %fieldset
+      %ol
+        %li
+          %input{id: 'new-link-button', value: 'Save', type: 'submit'}

@@ -1,1 +1,23 @@
-%h2 Area 51
+%h2 Links
+
+#todo
+  %ol
+    %li
+      Server-side 
+      %b form 
+      validation error display 
+      %i (client-side validations for sinatra?)
+    %li
+      URL treatment
+
+
+- @links.each do |link|
+  .link
+    %ol
+      %li
+        %a{href: h(link.url)}
+          = h link.url
+      %li
+        = h link.title
+      %li
+        = h link.description

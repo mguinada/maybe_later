@@ -3,9 +3,10 @@ $(function() {
   $('div#flash > div').slideDown(500);
 
   /* in-field form label*/
-  $('form#signin label').inFieldLabels();
+  $('form label').inFieldLabels();
 
   /* client-side form validation */
+  /* TODO: do this plugin-wide */
   $('form').validate({
     errorElement: "span",
     messages: {
@@ -17,7 +18,13 @@ $(function() {
         },
         password: {
           required: 'required'
-        }
+        },
+        url: {
+          required: 'required'
+        },
+        title: {
+          required: 'required'
+        },
     }
   });
 });

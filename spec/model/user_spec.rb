@@ -26,4 +26,9 @@ describe User do
     User.authenticate('no_such_user@example.com', 'password').should be_nil
     User.authenticate('user@example.com', 'test_password').should eq(user)
   end
+
+  it "has links" do
+    User.new.respond_to?(:links).should be_true
+    User.new.respond_to?(:links=).should be_true
+  end
 end

@@ -25,6 +25,17 @@ ul {
 }
 
 /* layout */
+#todo {
+  background-color: #f5f5f5;  
+  padding-left: 2.5em;
+  margin: 0.5em;
+  font-size: 0.725em;
+}
+
+#todo li {
+  list-style-type: upper-roman;
+}
+
 #header {
 	padding: 1em;
 }
@@ -59,6 +70,10 @@ ul {
 
 #content div {
 	padding-bottom: 0.5em;
+}
+
+.link li {
+  list-style: none;
 }
 
 /* forms */
@@ -109,9 +124,13 @@ form fieldset li {
   position: relative;
 }
 
-form input[type="text"], input[type="password"]{
+form input[type="text"], input[type="password"], textarea {
   border-width: 1px;
   width: 300px;
+}
+
+form textarea {
+  height: 100px;
 }
 
 form fieldset.buttons input[type="submit"] {

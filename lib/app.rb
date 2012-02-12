@@ -9,7 +9,12 @@ class Application < Sinatra::Base
   end
   register Warden
 
-  before "/me" do
+  helpers do
+    include Rack::Utils
+    alias_method :h, :escape_html
+  end
+
+  before %r{^(\/me)} do
     authenticate_user!
   end
 
@@ -22,7 +27,36 @@ class Application < Sinatra::Base
   end
 
   get '/me' do
+    @links = current_user.links
     haml :user
+  end
+
+  get '/me/link/new' do
+    haml :new_link
+  end
+
+  post '/me/link/create' do
+    @link = Link.where(url: params[:url]).first    
+    @link = Link.new(params) if @link.nil?
+    
+    current_user.links << @link
+    #@link.users << current_user
+
+    puts ":::::::::::::"
+    puts params.inspect
+    puts @link.valid?
+    puts @link.errors.inspect
+    puts @link.inspect
+    puts current_user.inspect
+    puts ":::::::::::::"
+
+
+    if @link.save
+      redirect '/me'
+    else
+      flash[:error] = 'An error ocurred while saving your link. Please try again later.'
+      haml :new_link
+    end
   end
 
   get '/signin' do

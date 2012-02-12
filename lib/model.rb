@@ -1,5 +1,5 @@
 #
-# === The person for which this application was mande
+# === The person for which this application was made
 #
 class User
   include Mongoid::Document
@@ -16,13 +16,15 @@ class User
   validates_uniqueness_of   :email
   validates_presence_of     :password,        :on => :create
   validates_confirmation_of :password
-  validates_length_of       :password,        minimum: 6
+  validates_length_of       :password,        minimum: 6, :on => :create
 
   attr_accessible           :email,
                             :password,
                             :password_confirmation
 
   before_save               :encrypt_password
+
+  has_and_belongs_to_many   :links
 
   def self.authenticate(email, password)
     user = User.where(email: email).first
@@ -37,4 +39,19 @@ class User
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
+end
+
+#
+# === A Link that a user saves
+#
+class Link
+  include Mongoid::Document
+
+  field                   :url,         type: String
+  field                   :title,       type: String
+  field                   :description, type: String
+
+  validates_uniqueness_of :url
+
+  has_and_belongs_to_many :users
 end
