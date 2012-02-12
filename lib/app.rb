@@ -40,16 +40,6 @@ class Application < Sinatra::Base
     @link = Link.new(params) if @link.nil?
     
     current_user.links << @link
-    #@link.users << current_user
-
-    puts ":::::::::::::"
-    puts params.inspect
-    puts @link.valid?
-    puts @link.errors.inspect
-    puts @link.inspect
-    puts current_user.inspect
-    puts ":::::::::::::"
-
 
     if @link.save
       redirect '/me'
