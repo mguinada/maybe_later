@@ -51,7 +51,28 @@ class Link
   field                   :title,       type: String
   field                   :description, type: String
 
-  validates_uniqueness_of :url
+  validates_uniqueness_of :url  
+  validate                :url_format
 
   has_and_belongs_to_many :users
+
+  def url=(str)
+    self[:url] = process_url(str)
+  end
+
+  private
+  def process_url(str)
+    return str if str.nil? or str.empty?    
+    return "http://#{str}" unless str =~ /^(http:\/\/|https:\/\/)/i
+    str
+  end
+
+  def url_format
+    begin
+      parsed_url = URI.parse(url)
+      errors.add(:url, "is invalid") unless [URI::HTTP, URI::HTTPS].include?(parsed_url.class)
+    rescue
+      errors.add(:url, "is invalid")
+    end    
+  end
 end
