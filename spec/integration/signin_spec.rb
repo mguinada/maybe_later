@@ -38,20 +38,20 @@ describe "Sign in" do
   end
 
   it "intercepts requests to private resources" do
-    visit '/private'
+    visit '/me'
 
     current_path.should eq('/signin')
     page.should have_content('You must signin!')
   end
 
   it "redirects back to original request" do
-    visit '/private' #TODO: Make authentication a helper
+    visit '/me' #TODO: Make authentication a helper
 
     fill_in 'email', with: 'user@example.com'
     fill_in 'password', with: 'test_password'
 
     click_button 'sign-in-button'
 
-    current_path.should eq('/private')
+    current_path.should eq('/me')
   end
 end

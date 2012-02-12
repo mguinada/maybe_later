@@ -9,16 +9,20 @@ class Application < Sinatra::Base
   end
   register Warden
 
-  before "/private" do
+  before "/me" do
     authenticate_user!
   end
 
   get '/' do
-    haml :welcome
+    if user_signed_in?
+      redirect '/me'
+    else
+      haml :welcome
+    end    
   end
 
-  get '/private' do
-    haml :private
+  get '/me' do
+    haml :user
   end
 
   get '/signin' do
@@ -36,7 +40,7 @@ class Application < Sinatra::Base
     redirect_back_url = session.delete(:redirect_back)
 
     flash[:success] = 'You successfully signed in.'
-    redirect redirect_back_url || '/'
+    redirect redirect_back_url || '/me'
   end
 
   get '/session/destroy' do #TODO: put under the auth filter
