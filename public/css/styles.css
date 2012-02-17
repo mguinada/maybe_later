@@ -65,11 +65,15 @@ ul {
 }
 
 #content {
-	padding: 1em;
+	/*padding: 1em 1em 1em 1em;*/
 }
 
 #content div {
 	padding-bottom: 0.5em;
+}
+
+.link {
+  padding: 0.25em;
 }
 
 .link li {
