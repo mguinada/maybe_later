@@ -13,5 +13,7 @@ gem 'tux'
 
 group :test do
   gem 'rspec'
+  gem 'valid_attribute'
   gem 'capybara'
+  gem 'selenium-webdriver'
 end

@@ -8,13 +8,13 @@
       %i (client-side validations for sinatra?)
     %li
       URL treatment
-- @links.each do |link|
+- @references.each do |ref|
   .link
     %ol
       %li
-        %a{href: link.url}
-          = h link.url
+        %a{href: ref.link.url}
+          = h ref.link.url
       %li
-        = h link.title
+        = h ref.link.title
       %li
-        = h link.description
+        = h ref.link.description

@@ -3,11 +3,6 @@ require 'spec_helper'
 describe Link do
   before(:each) { Link.create!(url: "http://example.com", title: 'example') }
 
-  it "is associated to users" do
-    Link.new.respond_to?(:users).should be_true
-    Link.new.respond_to?(:users=).should be_true
-  end
-
   it "validates URL uniqueness" do    
     link = Link.new(url: 'http://example.com', title: 'example')
     link.should_not be_valid

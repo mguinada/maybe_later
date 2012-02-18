@@ -24,17 +24,23 @@ class User
 
   before_save               :encrypt_password
 
-  has_and_belongs_to_many   :links
+  has_many                  :references
 
-  def self.authenticate(email, password)
-    user = User.where(email: email).first
-    return user if user and user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
-    nil
+  class << self
+    def authenticate(email, password)
+      user = User.where(email: email).first
+      return user if user and user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
+      nil
+    end
+  end
+
+  def references_url?(url)
+    references.with_url(url).first
   end
 
   private
   def encrypt_password
-    unless password.nil? or password.empty?
+    unless password.blank?
       self.password_salt = BCrypt::Engine.generate_salt
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
@@ -54,19 +60,21 @@ class Link
   validates_uniqueness_of :url  
   validate                :url_format
 
-  has_and_belongs_to_many :users
+  has_many                :references
 
   def url=(str)
-    self[:url] = process_url(str)
+    self[:url] = Link.normalize_url(str)
+  end
+
+  class << self
+    def normalize_url(str)
+      return str if str.blank?
+      return "http://#{str}" unless str =~ /^(http:\/\/|https:\/\/)/i
+      str
+    end
   end
 
   private
-  def process_url(str)
-    return str if str.nil? or str.empty?    
-    return "http://#{str}" unless str =~ /^(http:\/\/|https:\/\/)/i
-    str
-  end
-
   def url_format
     begin
       parsed_url = URI.parse(url)
@@ -76,3 +84,32 @@ class Link
     end    
   end
 end
+
+#
+# === A User's reference to a link
+# 
+
+class Reference
+  include Mongoid::Document
+
+  field                   :created_at, type: Time
+
+  belongs_to              :user
+  belongs_to              :link
+
+  validates_presence_of   :user, 
+                          :link
+
+  validates_uniqueness_of :link, :scope => :user
+
+  before_save(on: :create) do
+    self.created_at = Time.now
+  end
+
+  class << self
+    def with_url(url)
+      where(link_id: Link.where(url: Link.normalize_url(url)).first.try(:_id))
+    end
+  end
+end
+

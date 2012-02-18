@@ -5,12 +5,16 @@ BootSequence.new(environment: 'test').execute
 require 'capybara'
 require 'capybara/dsl'
 
+#Can be :chrome, :firefox or :ie
+#Selenium::WebDriver.for :chrome
+#Capybara.default_driver = :selenium
+
 RSpec.configure do |config|
   #Tell capybara of our application
   Capybara.app = Application
 
   config.before(:each) do
-    [Link, User].each do |m|
+    [Link, Reference, User].each do |m|
       m.send :delete_all
     end
   end

@@ -27,7 +27,7 @@ class Application < Sinatra::Base
   end
 
   get '/me' do
-    @links = current_user.links
+    @references = current_user.references #TODO: includes(:link)??
     haml :user
   end
 
@@ -36,16 +36,22 @@ class Application < Sinatra::Base
   end
 
   post '/me/link/create' do
-    @link = Link.where(url: params[:url]).first    
-    @link = Link.new(params) if @link.nil?
-    
-    current_user.links << @link
-
-    if @link.save
-      redirect '/me'
+    unless current_user.references_url?(params[:url])
+      @link = Link.where(url: params[:url]).first    
+      if @link.nil?
+        @link = Link.new(params) 
+      end
+      
+      @reference = current_user.references.new(link: @link)
+      if @link.save and @reference.save
+        redirect '/me'
+      else
+        flash[:error] = 'An error ocurred while saving your link. Please try again later.'
+        haml :new_link
+      end
     else
-      flash[:error] = 'An error ocurred while saving your link. Please try again later.'
-      haml :new_link
+      flash[:notice] = 'Link was alrady referenced.'
+      redirect '/me'
     end
   end
 
