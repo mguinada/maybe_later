@@ -22,7 +22,7 @@ describe Reference do
     ref.created_at.should be_present
   end
 
-  describe ".with_url" do
+  describe "::with_url" do
     it "finds references to a given url" do
       a_link = Link.create!(url: 'a-link.example.org', title: 'test')
       new_ref = Reference.create!(user: user, link: a_link)

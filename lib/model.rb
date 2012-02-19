@@ -31,11 +31,23 @@ class User
       user = User.where(email: email).first
       return user if user and user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
       nil
-    end
+    end    
   end
 
   def references_url?(url)
-    references.with_url(url).first
+    references.with_url(url).first.present?
+  end
+
+  def create_reference(params)
+    raise DuplicateReference if references_url?(params[:url])
+
+    link = Link.where(url: Link.normalize_url(params[:url])).first
+    link = Link.new(params) if link.nil?
+
+    ref = self.references.new(link: link)
+
+    raise ReferenceCreationError unless link.save and ref.save 
+    ref
   end
 
   private
@@ -113,3 +125,18 @@ class Reference
   end
 end
 
+#
+# === DuplicateReference
+# 
+# Thrown if user attempts to make a reference for a link that he already as referenced before
+#
+class DuplicateReference < RuntimeError
+end
+
+#
+# === ReferenceCreationError
+# 
+# Thrown if reference creation fails by unknown reasons
+#
+class ReferenceCreationError < RuntimeError
+end

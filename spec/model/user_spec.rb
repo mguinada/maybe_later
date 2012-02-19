@@ -26,4 +26,31 @@ describe User do
     User.authenticate('no_such_user@example.com', 'password').should be_nil
     User.authenticate('user@example.com', 'test_password').should eq(user)
   end
+
+  describe "::create_reference" do
+    before(:each) do
+      Link.create!(url: "test.example.com", title: "Test URL")
+    end
+
+    it "creates new link if it doesn't exist already" do
+      url = "a-new-link.example.org/q='test'"
+      Link.all.size.should be(1)
+      user.create_reference({url: url}).should be_persisted
+      Link.all.size.should be(2)
+    end
+
+    it "associates to existing link if one is found" do
+      url = "test.example.com"
+      Link.all.size.should be(1)
+      user.create_reference({url: url}).should be_persisted
+      Link.all.size.should be(1)
+    end
+
+    it "preventes double referencing" do
+      url = "test.example.com"
+      user.create_reference({url: url}).should be_persisted
+
+      lambda { user.create_reference({url: url}) }.should raise_error(DuplicateReference)
+    end
+  end
 end

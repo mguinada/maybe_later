@@ -36,23 +36,14 @@ class Application < Sinatra::Base
   end
 
   post '/me/link/create' do
-    unless current_user.references_url?(params[:url])
-      @link = Link.where(url: params[:url]).first    
-      if @link.nil?
-        @link = Link.new(params) 
-      end
-      
-      @reference = current_user.references.new(link: @link)
-      if @link.save and @reference.save
-        redirect '/me'
-      else
-        flash[:error] = 'An error ocurred while saving your link. Please try again later.'
-        haml :new_link
-      end
-    else
-      flash[:notice] = 'Link was alrady referenced.'
-      redirect '/me'
+    begin
+      current_user.create_reference(params)
+    rescue DuplicateReference
+      flash[:notice] = 'Link was already referenced.'
+    rescue ReferenceCreationError
+      flash[:error] = 'An error ocurred while saving your link. Please try again later.'
     end
+    redirect '/me'
   end
 
   get '/signin' do
