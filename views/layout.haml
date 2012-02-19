@@ -16,7 +16,7 @@
     %body
       #menu
         - if user_signed_in?
-          %a{href: '/me/link/new'} Add link
+          %a{href: '/me/new_link'} Add link
           %a{href: '/session/destroy'} Sign out
           #session-display
             = current_user.email

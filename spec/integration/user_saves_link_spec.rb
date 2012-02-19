@@ -17,7 +17,7 @@ describe "user saves link" do
   end
 
   it "by filling a form" do
-  	visit '/me/link/new'
+  	visit '/me/new_link'
 
   	fill_in 'url', with: 'http://www.example.com'
   	fill_in 'title', with: 'Example Link'

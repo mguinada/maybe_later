@@ -31,11 +31,11 @@ class Application < Sinatra::Base
     haml :user
   end
 
-  get '/me/link/new' do
+  get '/me/new_link' do
     haml :new_link
   end
 
-  post '/me/link/create' do
+  post '/me/create_link' do
     begin
       current_user.create_reference(params)
     rescue DuplicateReference
