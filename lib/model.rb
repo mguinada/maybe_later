@@ -43,8 +43,9 @@ class User
 
     link = Link.where(url: Link.normalize_url(params[:url])).first
     link = Link.new(params) if link.nil?
-
-    ref = self.references.new(link: link)
+    params[:link] = link
+    
+    ref = self.references.new(params)
 
     raise ReferenceCreationError unless link.save and ref.save 
     ref
@@ -66,13 +67,16 @@ class Link
   include Mongoid::Document
 
   field                   :url,         type: String
-  field                   :title,       type: String
-  field                   :description, type: String
+  field                   :created_at,  type: Time
 
   validates_uniqueness_of :url  
   validate                :url_format
 
   has_many                :references
+
+  before_save(on: :create) do
+    self.created_at = Time.now
+  end
 
   def url=(str)
     self[:url] = Link.normalize_url(str)
@@ -104,7 +108,9 @@ end
 class Reference
   include Mongoid::Document
 
-  field                   :created_at, type: Time
+  field                   :title,       type: String
+  field                   :description, type: String
+  field                   :created_at,  type: Time
 
   belongs_to              :user
   belongs_to              :link

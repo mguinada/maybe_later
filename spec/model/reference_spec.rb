@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Reference do
   let!(:subject)   { Reference.new }  
-  let!(:link)      { Link.create!(url: 'test.example.org', title: 'test link') }
+  let!(:link)      { Link.create!(url: 'test.example.org') }
   let!(:user)      { User.create!(email: 'user@example.com', password: 'test_password') }
-  let!(:reference) { Reference.create!(user: user, link: link) }
+  let!(:reference) { Reference.create!(user: user, link: link, title: 'test') }
   
   specify do
     should_not have_valid(:user).when(nil)
@@ -24,8 +24,8 @@ describe Reference do
 
   describe "::with_url" do
     it "finds references to a given url" do
-      a_link = Link.create!(url: 'a-link.example.org', title: 'test')
-      new_ref = Reference.create!(user: user, link: a_link)
+      a_link = Link.create!(url: 'a-link.example.org')
+      new_ref = Reference.create!(user: user, link: a_link, title: 'test')
       Reference.with_url(link.url).to_a.should eq([reference])
     end
   end
