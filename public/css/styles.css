@@ -3,12 +3,12 @@
 /* ============================== */
 
 body {
-	font: normal 100% Helvetica, Arial, sans-serif;
+	font: normal 100% 'Share', cursive, Helvetica, Arial, sans-serif;
   line-height: 1.5em;
 }
 
 h1, h2 {
-	font-family: Georgia, serif;
+	font-family: font-family: 'Share', cursive;
 	padding-bottom: 0.25em;
 }
 
