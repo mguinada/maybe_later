@@ -1,7 +1,8 @@
 require 'spec_helper'
 
-describe "user saves link" do
+describe "User saves link" do
   before(:each) do
+    #TODO: Sign in test helper
     User.create!(email: 'user@example.com', password: 'test_password')
 
     visit '/signin'
