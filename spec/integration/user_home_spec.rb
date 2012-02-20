@@ -14,11 +14,25 @@ describe "User home" do
     click_button 'sign-in-button'
   end
 
-  it "lists user links" do
+  it "lists links" do
     visit '/me'
 
     page.should have_content('http://test.example.org')
     page.should have_content('Test title')
     page.should have_content('Test description')
+  end
+
+
+  it "marking a link as read" do
+    pending
+    visit '/me'
+
+    page.should have_link('mark as read')
+  end
+
+  it "allows link deletion" do
+    visit '/me'
+
+    page.should have_link('delete')
   end
 end

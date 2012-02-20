@@ -69,20 +69,17 @@ ul {
 }
 
 #content div {
-	padding-bottom: 0.5em;
+	/* padding-bottom: 0.5em; */
 }
 
 .link {
-  padding: 0.25em;
-  margin-top: 0.5em;
+  padding-bottom: 0.25em;
 }
 
 .link ol {
   padding: 0.25em;
   list-style: none;
-  border-bottom: 1px dashed #999;
-  border-width 1px 0;
-  background: #F8F7EF;
+  background: #f5f5f5;
 }
 
 .link li {
@@ -97,6 +94,23 @@ ul {
   font-style: italic;
   font-size: 0.875em;      /* 14px / 16px =  0.875 */
 }
+
+.link ol.buttons li {
+  padding-right: 0.125em;
+  display: inline;
+}
+
+.link ol.buttons a {
+  background-color: #999;
+  color: #f5f5f5;  
+  padding: 1px 5px 1px 5px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 0.65em;      /* 10px / 16px =  0.75 */
+  font-weight: bold;
+}
+
 
 /* forms */
 form {
@@ -170,7 +184,6 @@ div.notice, div.alert, div.success {
   opacity: 0.8;
   -moz-opacity: 0.8;
   filter:alpha(opacity=8);
-
 }
 
 div.notice {
