@@ -1,20 +1,11 @@
-%h2 Links
-#todo
-  %ol
-    %li
-      Server-side 
-      %b form 
-      validation error display 
-      %i (client-side validations for sinatra?)
-    %li
-      URL treatment
 - @references.each do |ref|
   .link
     %ol
-      %li
-        %a{href: ref.link.url}
-          = h ref.link.url
-      %li
+      %li.title
         = h ref.title
-      %li
-        = h ref.description
+      %li.url
+        %a{href: ref.link.url, rel: 'tooltip', title: ref.link.url}
+          = h ref.link.url
+      %li.desc
+        %i 
+          = h ref.description
