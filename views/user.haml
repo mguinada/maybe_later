@@ -9,8 +9,21 @@
       %li.desc
         %i 
           = h ref.description
-    %ol.buttons
+    %ol.tags
       %li
-        %a Mark read
+        %a{href: '#'} Ruby
       %li
-        %a Delete
+        %a{href: '#'} Sinatra
+      %li
+        %a{href: '#'} HAML
+      %li
+        %a{href: '#'} jQuery
+    %ol{id: "buttons-#{ref.id}", class: 'buttons', dataid: ref.id}
+      %li
+        %a{href: '#'} Mark read
+      %li
+        %a{id: 'delete-button', href: '#', class: 'critical'} DELETE
+      %li{class: 'confirm', style: 'display:none;'}
+        %span Are Your Sure?
+        %a{href: 'javascript:void(0);', class: 'no'} No
+        %a{class: 'yes'} Yes

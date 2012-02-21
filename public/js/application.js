@@ -29,5 +29,22 @@ $(function() {
   });
 
   $('a').tooltip();
+  
+  $('a#delete-button').on('click', function() {    
+    findButtonScope(this).show('fade', { direction: 'horizontal' }, 750);
+  });
+
+  $('a.no').on('click', function() {    
+    findButtonScope(this).hide();
+  });
+
+  $('a.yes').on('click', function() {
+    alert('ok');
+    findButtonScope(this).hide();
+  });
+
+  function findButtonScope(obj) {
+    return $("ol[dataid=" + $(obj).parents('ol:first').attr('dataid') + "] li.confirm");
+  }
 });
 

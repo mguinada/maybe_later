@@ -23,16 +23,15 @@ describe "User home" do
   end
 
 
-  it "marking a link as read" do
-    pending
+  it "marking a link as read" do    
     visit '/me'
 
-    page.should have_link('mark as read')
+    page.should have_link('Mark read')
   end
 
   it "allows link deletion" do
     visit '/me'
 
-    page.should have_link('delete')
+    page.should have_link('delete-button')
   end
 end

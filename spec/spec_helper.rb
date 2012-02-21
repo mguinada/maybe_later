@@ -7,7 +7,7 @@ require 'capybara/dsl'
 
 #Can be :chrome, :firefox or :ie
 #Selenium::WebDriver.for :chrome
-Capybara.default_driver = :selenium
+#Capybara.default_driver = :selenium
 
 RSpec.configure do |config|
   #Tell capybara of our application
