@@ -1,17 +1,10 @@
 describe "User home" do
   before(:each) do
-    #TODO: Sign in test helper
-    user = User.create!(email: 'user@example.com', password: 'test_password')
-    link = Link.create!(url: 'test.example.org')    
+    sign_in
+  end
 
-    Reference.create!(user: user, link: link, title: 'Test title', description: 'Test description')
-
-    visit '/signin'
-
-    fill_in 'email', with: 'user@example.com'
-    fill_in 'password', with: 'test_password'
-
-    click_button 'sign-in-button'
+  after(:each) do
+    sign_out
   end
 
   it "lists links" do
@@ -23,7 +16,7 @@ describe "User home" do
   end
 
 
-  it "marking a link as read" do    
+  it "marking a link as read" do
     visit '/me'
 
     page.should have_link('Mark read')

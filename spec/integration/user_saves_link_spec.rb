@@ -2,19 +2,11 @@ require 'spec_helper'
 
 describe "User saves link" do
   before(:each) do
-    #TODO: Sign in test helper
-    User.create!(email: 'user@example.com', password: 'test_password')
-
-    visit '/signin'
-
-    fill_in 'email', with: 'user@example.com'
-    fill_in 'password', with: 'test_password'
-
-    click_button 'sign-in-button'
+    sign_in
   end
 
   after(:each) do
-  	visit '/session/destroy'
+  	sign_out
   end
 
   it "by filling a form" do

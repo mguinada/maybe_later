@@ -23,7 +23,7 @@ class Application < Sinatra::Base
       redirect '/me'
     else
       haml :welcome
-    end    
+    end
   end
 
   get '/me' do
@@ -44,6 +44,13 @@ class Application < Sinatra::Base
       flash[:error] = 'An error ocurred while saving your link. Please try again later.'
     end
     redirect '/me'
+  end
+
+  delete '/me/delete_link/:id' do
+    @references = current_user.references
+    @references.find(params[:id]).delete
+    flash[:notice] = 'Link deleted'
+    haml :user, layout: !request.xhr?
   end
 
   get '/signin' do

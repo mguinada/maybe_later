@@ -29,22 +29,37 @@ $(function() {
   });
 
   $('a').tooltip();
-  
-  $('a#delete-button').on('click', function() {    
+
+  $('a#delete-button').on('click', function() {
     findButtonScope(this).show('fade', { direction: 'horizontal' }, 750);
   });
 
-  $('a.no').on('click', function() {    
+  $('a.no').on('click', function() {
     findButtonScope(this).hide();
   });
 
   $('a.yes').on('click', function() {
-    alert('ok');
     findButtonScope(this).hide();
   });
 
   function findButtonScope(obj) {
     return $("ol[dataid=" + $(obj).parents('ol:first').attr('dataid') + "] li.confirm");
   }
+
+  $("a.yes").on('click', function(e) {
+    if (e.which == 1 && !e.metaKey && !e.shiftKey) {
+      $.ajax({
+        url: $(this).attr('href'),
+        type: $(this).attr('method'),
+        dataType: "html",
+        success: function(data, textStatus, jqXHR) {
+          //Not doing this ajax yet.
+          window.location = window.location.protocol + "//" + window.location.host + "/me"
+          //$('div#link-list').html(data);
+        }
+      });
+    }
+    return false;
+  });
 });
 

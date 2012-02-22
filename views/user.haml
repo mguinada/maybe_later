@@ -1,29 +1,30 @@
-- @references.each do |ref|
-  .link
-    %ol
-      %li.title
-        = h ref.title
-      %li.url
-        %a{href: ref.link.url, rel: 'tooltip', title: ref.link.url}
-          = h ref.link.url
-      %li.desc
-        %i 
-          = h ref.description
-    %ol.tags
-      %li
-        %a{href: '#'} Ruby
-      %li
-        %a{href: '#'} Sinatra
-      %li
-        %a{href: '#'} HAML
-      %li
-        %a{href: '#'} jQuery
-    %ol{id: "buttons-#{ref.id}", class: 'buttons', dataid: ref.id}
-      %li
-        %a{href: '#'} Mark read
-      %li
-        %a{id: 'delete-button', href: '#', class: 'critical'} DELETE
-      %li{class: 'confirm', style: 'display:none;'}
-        %span Are Your Sure?
-        %a{href: 'javascript:void(0);', class: 'no'} No
-        %a{class: 'yes'} Yes
+#link-list
+  - @references.each do |ref|
+    .link
+      %ol
+        %li.title
+          = h ref.title
+        %li.url
+          %a{href: ref.link.url, rel: 'tooltip', title: ref.link.url}
+            = h ref.link.url
+        %li.desc
+          %i
+            = h ref.description
+      %ol.tags
+        %li
+          %a{href: '#'} Ruby
+        %li
+          %a{href: '#'} Sinatra
+        %li
+          %a{href: '#'} HAML
+        %li
+          %a{href: '#'} jQuery
+      %ol{id: "buttons-#{ref.id}", class: 'buttons', dataid: ref.id}
+        %li
+          %a{href: '#'} Mark read
+        %li
+          %a{id: 'delete-button', href: 'javascript:void(0)', class: 'critical'} DELETE
+        %li{class: 'confirm', style: 'display:none;'}
+          %span Are You Sure?
+          %a{href: 'javascript:void(0)', class: 'no'} No
+          %a{href: "/me/delete_link/#{ref.id}", method: 'delete', class: 'yes'} Yes
