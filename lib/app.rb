@@ -27,7 +27,8 @@ class Application < Sinatra::Base
   end
 
   get '/me' do
-    @references = current_user.references #TODO: includes(:link)??
+    #TODO: includes(:link)??
+    @references = current_user.references.order_by([:created_at, :desc])
     haml :user
   end
 

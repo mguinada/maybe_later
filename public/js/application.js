@@ -28,7 +28,9 @@ $(function() {
     }
   });
 
-  $('a').tooltip();
+  //$('a').tooltip();
+
+  $('abbr.timeago').timeago();
 
   $('a#delete-button').on('click', function() {
     findButtonScope(this).show('fade', { direction: 'horizontal' }, 750);
@@ -55,7 +57,6 @@ $(function() {
         success: function(data, textStatus, jqXHR) {
           //Not doing this ajax yet.
           window.location = window.location.protocol + "//" + window.location.host + "/me"
-          //$('div#link-list').html(data);
         }
       });
     }

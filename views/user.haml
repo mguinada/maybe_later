@@ -19,6 +19,13 @@
           %a{href: '#'} HAML
         %li
           %a{href: '#'} jQuery
+      %ol.info
+        %li
+          %span
+            - if ref.created_at < 2.days.ago #older than two days ago
+              = ref.created_at.to_s(:long)
+            - else
+              %abbr{class: 'timeago', rel: 'tooltop', title: ref.created_at}
       %ol{id: "buttons-#{ref.id}", class: 'buttons', dataid: ref.id}
         %li
           %a{href: '#'} Mark read

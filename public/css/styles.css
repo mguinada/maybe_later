@@ -26,7 +26,7 @@ ul {
 
 /* layout */
 #todo {
-  background-color: #f5f5f5;  
+  background-color: #f5f5f5;
   padding-left: 2.5em;
   margin: 0.5em;
   font-size: 0.725em;
@@ -117,10 +117,15 @@ ul {
   text-decoration: none;
 }
 
+/* info */
+.link ol.info {
+  font-size: 0.65em;      /* 10px / 16px =  0.75 */
+}
+
 /* confirm button */
 .link ol.buttons {
   font-size: 0.65em;      /* 10px / 16px =  0.75 */
-  font-weight: bold;  
+  font-weight: bold;
   background: #f5f5f5;
   height: 15px;
   line-height: 1.5;
@@ -139,9 +144,9 @@ ul {
 }
 
 .link ol.buttons a:hover, .link ol.buttons a.critical:hover {
-  background: black;  
+  background: black;
   color: #f5f5f5;
-  
+
 }
 
 .link ol.buttons span {
@@ -331,7 +336,7 @@ div.success {
   position: absolute;
   width: 0;
   height: 0;
-} 
+}
 
 /* ============================= */
 /* ! Layout for mobile version   */
