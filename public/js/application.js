@@ -33,7 +33,7 @@ $(function() {
   $('abbr.timeago').timeago();
 
   $('a#delete-button').on('click', function() {
-    findButtonScope(this).show('fade', { direction: 'horizontal' }, 750);
+    findButtonScope(this).show('fade', 750);
   });
 
   $('a.no').on('click', function() {

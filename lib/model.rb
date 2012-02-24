@@ -31,7 +31,7 @@ class User
       user = User.where(email: email).first
       return user if user and user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
       nil
-    end    
+    end
   end
 
   def references_url?(url)
@@ -44,10 +44,10 @@ class User
     link = Link.where(url: Link.normalize_url(params[:url])).first
     link = Link.new(params) if link.nil?
     params[:link] = link
-    
+
     ref = self.references.new(params)
 
-    raise ReferenceCreationError unless link.save and ref.save 
+    raise ReferenceCreationError unless link.save and ref.save
     ref
   end
 
@@ -69,13 +69,13 @@ class Link
   field                   :url,         type: String
   field                   :created_at,  type: Time
 
-  validates_uniqueness_of :url  
+  validates_uniqueness_of :url
   validate                :url_format
 
   has_many                :references
 
   before_save(on: :create) do
-    self.created_at = Time.now
+    self.created_at = Time.current
   end
 
   def url=(str)
@@ -97,13 +97,13 @@ class Link
       errors.add(:url, "is invalid") unless [URI::HTTP, URI::HTTPS].include?(parsed_url.class)
     rescue
       errors.add(:url, "is invalid")
-    end    
+    end
   end
 end
 
 #
 # === A User's reference to a link
-# 
+#
 
 class Reference
   include Mongoid::Document
@@ -115,13 +115,13 @@ class Reference
   belongs_to              :user
   belongs_to              :link
 
-  validates_presence_of   :user, 
+  validates_presence_of   :user,
                           :link
 
   validates_uniqueness_of :link, :scope => :user
 
   before_save(on: :create) do
-    self.created_at = Time.now
+    self.created_at = Time.current
   end
 
   class << self
@@ -133,7 +133,7 @@ end
 
 #
 # === DuplicateReference
-# 
+#
 # Thrown if user attempts to make a reference for a link that he already as referenced before
 #
 class DuplicateReference < RuntimeError
@@ -141,7 +141,7 @@ end
 
 #
 # === ReferenceCreationError
-# 
+#
 # Thrown if reference creation fails by unknown reasons
 #
 class ReferenceCreationError < RuntimeError

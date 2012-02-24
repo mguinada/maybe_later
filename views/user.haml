@@ -9,29 +9,19 @@
             = h ref.link.url
         %li.desc
           %i
-            = h ref.description
-      %ol.tags
-        %li
-          %a{href: '#'} Ruby
-        %li
-          %a{href: '#'} Sinatra
-        %li
-          %a{href: '#'} HAML
-        %li
-          %a{href: '#'} jQuery
-      %ol.info
-        %li
-          %span
-            - if ref.created_at < 2.days.ago #older than two days ago
-              = ref.created_at.to_s(:long)
-            - else
-              %abbr{class: 'timeago', rel: 'tooltop', title: ref.created_at}
+            = h ref.description.truncate(255, omission: '...')
       %ol{id: "buttons-#{ref.id}", class: 'buttons', dataid: ref.id}
         %li
           %a{href: '#'} Mark read
         %li
           %a{id: 'delete-button', href: 'javascript:void(0)', class: 'critical'} DELETE
         %li{class: 'confirm', style: 'display:none;'}
-          %span Are You Sure?
+          %span.question Are You Sure?
           %a{href: 'javascript:void(0)', class: 'no'} No
           %a{href: "/me/delete_link/#{ref.id}", method: 'delete', class: 'yes'} Yes
+        %li.timestamp
+          %span
+            - if ref.created_at < 1.day.ago #if today
+              = ref.created_at.to_s(:long)
+            - else
+              %abbr{class: 'timeago', title: ref.created_at}
