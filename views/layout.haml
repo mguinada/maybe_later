@@ -9,8 +9,10 @@
     %link{href: '/css/styles.css', rel: 'stylesheet', type: 'text/css', media: 'screen'}
 
     %body
+      /#light
       #menu
         - if user_signed_in?
+          %a{href: '/me'} My Links
           %a{href: '/me/new_link'} Add link
           %a{href: '/session/destroy'} Sign out
           #session-display

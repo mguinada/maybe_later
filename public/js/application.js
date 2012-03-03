@@ -48,7 +48,11 @@ $(function() {
     return $("ol[dataid=" + $(obj).parents('ol:first').attr('dataid') + "] li.confirm");
   }
 
-  $("a.yes").on('click', function(e) {
+  function currentHost() {
+    return window.location.protocol + "//" + window.location.host
+  }
+
+  $('a.yes').on('click', function(e) {
     if (e.which == 1 && !e.metaKey && !e.shiftKey) {
       $.ajax({
         url: $(this).attr('href'),
@@ -56,11 +60,19 @@ $(function() {
         dataType: "html",
         success: function(data, textStatus, jqXHR) {
           //Not doing this ajax yet.
-          window.location = window.location.protocol + "//" + window.location.host + "/me"
+          window.location = currentHost() + "/me"
         }
       });
     }
     return false;
   });
+
+  /* selected menu item */
+  $.each($('#menu a'), function() {
+    if($(this).attr('href') == window.location.pathname) {
+      $(this).attr('class', 'selected');
+    }
+  });
 });
+
 

@@ -6,7 +6,7 @@ describe "Welcome page" do
     page.should have_content("Maybe Later is")
   end
 
-  it "points to the login from" do
+  it "points to the sign in from" do
     visit "/"
     page.should have_link("Sign in")
   end

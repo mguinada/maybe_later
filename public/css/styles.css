@@ -44,6 +44,7 @@ ul {
 	background-color: #000;
 	color: #aaa;
 	padding-left: 1em;
+  border-top: 3px solid white;
 }
 
 #session-display {
@@ -60,8 +61,10 @@ ul {
 	font-size: 0.75em;      /* 12px / 16px = 0.75em */
 }
 
-#menu a:hover {
-	text-decoration: underline;
+#menu a:hover, #menu a.selected {
+	text-decoration: none;
+  padding-top: 5px;
+  border-top: 3px solid black;
 }
 
 #content {

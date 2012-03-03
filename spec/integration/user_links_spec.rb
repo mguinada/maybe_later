@@ -1,4 +1,4 @@
-describe "User home" do
+describe "User links" do
   before(:each) do
     sign_in
   end
