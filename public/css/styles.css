@@ -116,9 +116,6 @@ ul {
   background: #999;
   color: #f5f5f5;
   padding: 1px 5px 1px 5px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
   text-decoration: none;
 }
 
@@ -138,18 +135,27 @@ ul {
 }
 
 .link ol.buttons a.yes, .link ol.buttons a.no {
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
   margin-left: -3px;
   color: #f5f5f5;
 }
 
 .link ol.buttons a.yes {
+  -webkit-border-radius-topright: 2px;
+  -moz-border-radius-topright: 2px;
+  border-top-right-radius: 2px;
+  -webkit-border-radius-bottomright: 2px;
+  -moz-border-radius-bottomright: 2px;
+  border-bottom-right-radius: 2px;
   background: #468847;
 }
 
 .link ol.buttons a.no {
+    -webkit-border-radius-topleft: 2px;
+  -moz-border-radius-topleft: 2px;
+  border-top-left-radius: 2px;
+  -webkit-border-radius-bottomleft: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  border-bottom-left-radius: 2px;
   background: black;
 }
 
