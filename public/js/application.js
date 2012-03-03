@@ -37,7 +37,7 @@ $(function() {
   });
 
   $('a.no').on('click', function() {
-    findButtonScope(this).hide();
+    findButtonScope(this).hide('fade', 500);
   });
 
   $('a.yes').on('click', function() {
