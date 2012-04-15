@@ -1,3 +1,5 @@
+require 'rack/conneg'
+
 class Application < Sinatra::Base
   set      :views,                File.dirname(__FILE__) + "/../views"
   set      :public_folder,        File.dirname(__FILE__) + "/../public"
@@ -6,6 +8,11 @@ class Application < Sinatra::Base
   use      Warden::Manager do |manager|
     manager.default_strategies :email_and_password
     manager.failure_app = Application
+  end
+  use      Rack::Conneg do |conneg|
+    conneg.set :accept_all_extensions, false
+    conneg.set :fallback, :html
+    conneg.provide([:html, :json, :xml])
   end
   register Warden
 
@@ -27,9 +34,11 @@ class Application < Sinatra::Base
   end
 
   get '/me' do
-    #TODO: includes(:link)??
     @references = current_user.references.order_by([:created_at, :desc])
-    haml :user
+    respond_to do |format|
+      format.json { @references.to_json }
+      format.html { haml :user }
+    end
   end
 
   get '/me/new_link' do

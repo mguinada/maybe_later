@@ -10,6 +10,7 @@ gem 'bson_ext'
 gem 'bcrypt-ruby', require: 'bcrypt'
 gem 'haml'
 gem 'tux'
+gem 'rack-conneg'
 
 group :test do
   gem 'rspec'
