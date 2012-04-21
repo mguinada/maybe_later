@@ -12,6 +12,7 @@ class Application < Sinatra::Base
   use      Rack::Conneg do |conneg|
     conneg.set :accept_all_extensions, false
     conneg.set :fallback, :html
+    conneg.ignore_contents_of(File.dirname(__FILE__) + "/../public")
     conneg.provide([:html, :json, :xml])
   end
   register Warden
