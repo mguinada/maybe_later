@@ -18,6 +18,8 @@ describe 'User deletes a reference' do
 
     click_link 'Yes'
 
+    #save_and_open_page
+
     page.should_not have_content('Test title')
     page.should have_content('Link deleted')
   end

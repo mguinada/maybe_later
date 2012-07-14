@@ -1,18 +1,10 @@
 require 'spec_helper'
 
 describe Reference do
-  let!(:subject)   { Reference.new }  
+  let!(:subject)   { Reference.new }
   let!(:link)      { Link.create!(url: 'test.example.org') }
   let!(:user)      { User.create!(email: 'user@example.com', password: 'test_password') }
   let!(:reference) { Reference.create!(user: user, link: link, title: 'test') }
-  
-  specify do
-    should_not have_valid(:user).when(nil)
-  end
-
-  specify do
-    should_not have_valid(:link).when(nil)
-  end
 
   it "stores creation timestamp" do
     ref = Reference.new(user: user, link: link)

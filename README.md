@@ -1,0 +1,1 @@
+* Requires ruby 1.9.3 and mongodb 2.0.0 or later

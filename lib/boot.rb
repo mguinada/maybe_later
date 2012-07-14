@@ -15,14 +15,22 @@ class BootSequence < OpenStruct
     require 'bundler'
 
     Bundler.require :default, environment.to_sym
-
     Mongoid.load!(File.expand_path(File.dirname(__FILE__)) + "/mongoid.yml")
+
     Mongoid.logger = Logger.new(log_file)
+    if environment.to_sym == :production
+      Mongoid.logger.level = Logger::WARN
+      Moped.logger.level = Logger::WARN
+    else
+      Mongoid.logger.level = Logger::INFO
+      Moped.logger.level = Logger::INFO
+    end
 
     require 'model'
     require 'warden_setup'
+    require 'rack-flash'
     require 'app'
-    Application.environment = environment.to_sym
+    ENV['MONGOID_ENV'], Application.environment = environment, environment.to_sym
   end
 
   private

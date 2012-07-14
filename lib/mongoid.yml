@@ -1,16 +1,15 @@
-identity_map_enabled: true
+#identity_map_enabled: true
 
 development:
-  host: localhost
-  database: mayble_later_dev
+  sessions:
+    default:
+      database: maybe_later_dev
+      hosts: 
+        - localhost:27017
 
 test:
-  host: localhost
-  database: mayble_later_tst
-
-production:
-  host: prod_host
-  port: 1000
-  username: main
-  password: blabla
-  database: mayble_later
+  sessions:
+    default:
+      database: maybe_later_tst
+      hosts: 
+        - localhost:27017
