@@ -20,10 +20,7 @@
         - else
           %a{href: '/signin'} Sign in
       #flash
-        - [:success, :notice, :alert, :error].each do |name|
-          - if flash.has?(name)
-            %div{id: "flash-#{name}", class: name, style: 'display:none;'}
-              %p= flash[name]
+        = partial :flash, flash: flash
       #header
         %h1 Maybe later
       #content

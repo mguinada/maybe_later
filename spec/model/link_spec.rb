@@ -3,16 +3,16 @@ require 'spec_helper'
 describe Link do
   before(:each) { Link.create!(url: "http://example.com") }
 
-  it "validates URL uniqueness" do    
+  it "validates URL uniqueness" do
     link = Link.new(url: 'http://example.com')
     link.should_not be_valid
-    
+
     link.errors[:url].should eq(["is already taken"])
   end
 
   it "validates the URL" do
     link = Link.new(url: 'invalid url')
-    link.should_not be_valid    
+    link.should_not be_valid
     link.errors[:url].should eq(["is invalid"])
 
     link = Link.new(url: 'example.org')
@@ -20,7 +20,7 @@ describe Link do
 
     link = Link.new(url: 'www.example.org')
     link.should be_valid
-    
+
     link = Link.new(url: 'http://www.example.org')
     link.should be_valid
 
@@ -28,7 +28,7 @@ describe Link do
     link.should be_valid
   end
 
-  it "it harmonizes URL format" do
+  it "harmonizes URL format" do
     link = Link.new(url: 'http://example.com')
     link.url.should eq('http://example.com')
 

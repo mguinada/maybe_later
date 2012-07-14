@@ -1,7 +1,4 @@
-$(function() {
-  /* flash slide down */
-  $('div#flash > div').slideDown(500);
-
+function init() {
   /* in-field form label*/
   $('form label').inFieldLabels();
 
@@ -57,11 +54,7 @@ $(function() {
       $.ajax({
         url: $(this).attr('href'),
         type: $(this).attr('method'),
-        dataType: "html",
-        success: function(data, textStatus, jqXHR) {
-          //Not doing this ajax yet.
-          window.location = currentHost() + "/me"
-        }
+        dataType: 'script'
       });
     }
     return false;
@@ -73,6 +66,13 @@ $(function() {
       $(this).attr('class', 'selected');
     }
   });
+}
+
+$(function() {
+  /* flash slide down */
+  $('div#flash > div').slideDown(500);
+
+  init();
 });
 
 

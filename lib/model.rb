@@ -38,6 +38,10 @@ class User
     references.with_url(url).first.present?
   end
 
+  def paginated_references(page)
+    references.page(page).order_by([:created_at, :desc])
+  end
+
   def create_reference(params)
     raise DuplicateReference if references_url?(params[:url])
 
@@ -107,6 +111,7 @@ end
 
 class Reference
   include Mongoid::Document
+  include Mongoid::Paginator
 
   field                   :title,       type: String
   field                   :description, type: String

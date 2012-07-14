@@ -1,0 +1,4 @@
+- [:success, :notice, :alert, :error].each do |name|
+  - if flash.has?(name)
+    %div{id: "flash-#{name}", class: name, style: 'display:none;'}
+      %p= flash[name]

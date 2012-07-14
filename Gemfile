@@ -10,6 +10,11 @@ gem 'bcrypt-ruby',          '~> 3.0.0', require: 'bcrypt'
 gem 'haml',                 '~> 3.1.0'
 gem 'tux'
 gem 'rack-conneg',          '~> 0.1.0'
+gem 'escape_utils',         '~> 0.2.0'
+
+group :development do
+  gem 'shotgun'
+end
 
 group :test do
   gem 'rspec',              '~> 2.11.0'
@@ -17,5 +22,4 @@ group :test do
   gem 'capybara',           '~> 1.1.0'
   gem 'launchy',            '~> 2.1.0'
   gem 'selenium-webdriver', '~> 2.24.0'
-  gem 'capybara-webkit',    '~> 0.12.0'
 end

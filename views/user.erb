@@ -1,0 +1,14 @@
+$("div#<%= @reference.id %>").fadeOut(500, function() {
+  $("#link-list").html("<%= j partial(:user) %>");
+  $("#flash").html("<%= j partial(:flash, flash: flash) %>");
+  $('div#flash > div').fadeIn(3500);
+
+  $(function() {
+    init();
+  });
+});
+
+
+
+
+

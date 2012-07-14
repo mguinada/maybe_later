@@ -26,6 +26,7 @@ class BootSequence < OpenStruct
       Moped.logger.level = Logger::INFO
     end
 
+    require 'paginator'
     require 'model'
     require 'warden_setup'
     require 'rack-flash'

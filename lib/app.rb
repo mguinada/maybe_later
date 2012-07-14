@@ -13,13 +13,29 @@ class Application < Sinatra::Base
     conneg.set :accept_all_extensions, false
     conneg.set :fallback, :html
     conneg.ignore_contents_of(File.dirname(__FILE__) + "/../public")
-    conneg.provide([:html, :json, :xml])
+    conneg.provide([:html, :json, :xml, :js])
   end
   register Warden
 
   helpers do
-    include Rack::Utils
+    include Sinatra::Paginator
+
+    def escape_javascript(js)
+      EscapeUtils.escape_javascript(js)
+    end
+
+    def escape_html(html)
+      EscapeUtils.escape_html(html)
+    end
+
+    #partial rendering
+    def partial(page, variables = {}, options = {})
+      template_type = options.fetch(:in) { :haml }
+      send(template_type, page.to_sym, options.merge!(layout: false))
+    end
+
     alias_method :h, :escape_html
+    alias_method :j, :escape_javascript
   end
 
   before %r{^(\/me)} do
@@ -35,7 +51,7 @@ class Application < Sinatra::Base
   end
 
   get '/me' do
-    @references = current_user.references.order_by([:created_at, :desc])
+    @references = current_user.paginated_references(params[:page])
     respond_to do |format|
       format.json { @references.to_json }
       format.html { haml :user }
@@ -57,11 +73,34 @@ class Application < Sinatra::Base
     redirect '/me'
   end
 
-  delete '/me/delete_link/:id' do
-    @references = current_user.references
-    @references.find(params[:id]).delete
-    flash[:notice] = 'Link deleted'
-    haml :user, layout: !request.xhr?
+  post '/me/delete_link/:id' do
+    respond_to do |format|
+      @reference = current_user.references.find(params[:id])
+      if @reference.delete
+        flash_msg = 'Link deleted'
+        @references = current_user.paginated_references(params[:page]) #repaginate
+
+        format.js do
+          flash.now[:notice] = flash_msg
+          erb :user, layout: false
+        end
+        format.html do
+          flash[:notice] = flash_msg
+          redirect '/me'
+        end
+      else
+        flash_msg = 'An error ocurred while deleting your link. Please try again later.'
+
+        format.js do
+          flash.now[:error] = flash_msg
+          erb :delete_error
+        end
+        format.html do
+          flash[:error] = flash_msg
+          haml '/me'
+        end
+      end
+    end
   end
 
   get '/signin' do
