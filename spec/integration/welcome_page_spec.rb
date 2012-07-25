@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe "Welcome page" do
   it "describes the service" do
     visit "/"

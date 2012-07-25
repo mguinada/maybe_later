@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe User do
   subject { User.new }
   let!(:user) { User.create!(email: 'user@example.com', password: 'test_password') }

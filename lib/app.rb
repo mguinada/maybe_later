@@ -1,9 +1,12 @@
 require 'rack/conneg'
 
 class Application < Sinatra::Base
+  enable   :sessions
+
+  set      :session_secret,       ENV['SESSION_KEY']
   set      :views,                File.dirname(__FILE__) + "/../views"
   set      :public_folder,        File.dirname(__FILE__) + "/../public"
-  use      Rack::Session::Cookie, secret: '$2a$10$ZKMiSw22/QOXgBvt8sHEPuNyExwwssLAXIDmVHQlGWQ.9kvzJK0Qi'
+
   use      Rack::Flash,           sweep:  true
   use      Warden::Manager do |manager|
     manager.default_strategies :email_and_password
@@ -30,8 +33,8 @@ class Application < Sinatra::Base
 
     #partial rendering
     def partial(page, variables = {}, options = {})
-      template_type = options.fetch(:in) { :haml }
-      send(template_type, page.to_sym, options.merge!(layout: false))
+      template_type = options.delete(:in) { :haml }
+      send(template_type, page.to_sym, options.merge!(locals: variables, layout: false))
     end
 
     alias_method :h, :escape_html
@@ -54,7 +57,11 @@ class Application < Sinatra::Base
     @references = current_user.paginated_references(params[:page])
     respond_to do |format|
       format.json { @references.to_json }
-      format.html { haml :user }
+      format.html { haml :index }
+      format.js   {
+        @last_page = @references.total_page_count == @references.page_number
+        erb  :index, layout: false
+      }
     end
   end
 
@@ -78,11 +85,10 @@ class Application < Sinatra::Base
       @reference = current_user.references.find(params[:id])
       if @reference.delete
         flash_msg = 'Link deleted'
-        @references = current_user.paginated_references(params[:page]) #repaginate
 
         format.js do
           flash.now[:notice] = flash_msg
-          erb :user, layout: false
+          erb :delete, layout: false
         end
         format.html do
           flash[:notice] = flash_msg

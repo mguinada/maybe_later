@@ -6,16 +6,16 @@ require 'capybara'
 require 'capybara/dsl'
 
 module SessionHelper
-  def sign_in
-    user = User.create!(email: 'test.user@example.com', password: 'test_password')
+  def sign_in(user = nil)
+    user = User.create!(email: 'test.user@example.com', password: 'test_password') if user.nil?
     link = Link.create!(url: 'test.example.org')
 
     Reference.create!(user: user, link: link, title: 'Test title', description: 'Test description')
 
     visit '/signin'
 
-    fill_in 'email', with: 'test.user@example.com'
-    fill_in 'password', with: 'test_password'
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
 
     click_button 'sign-in-button'
   end

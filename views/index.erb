@@ -1,0 +1,12 @@
+var lastPage = '<%= @last_page %>';
+
+$("#link-list").append("<%= j partial(:references, references: @references) %>");
+
+if(lastPage == 'true') {
+  scroll.halt();
+  $("#link-list").append("<div id='the-end'><img src='/imgs/end.gif'/></div>");
+}
+
+$(function() {
+  init();
+});

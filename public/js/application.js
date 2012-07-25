@@ -1,3 +1,5 @@
+var scroll = new InfiniteScroll();
+
 function init() {
   /* in-field form label*/
   $('form label').inFieldLabels();
@@ -66,6 +68,10 @@ function init() {
       $(this).attr('class', 'selected');
     }
   });
+
+  /* infinite scroll */
+  $(window).scroll(scroll.nextPage);
+  $('div#scroll-zone').on('mouseenter', scroll.nextPage);
 }
 
 $(function() {

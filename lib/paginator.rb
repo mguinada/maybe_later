@@ -6,17 +6,13 @@ module Mongoid
     end
 
     module ClassMethods
-      def per_page; 5; end
+      def page_size; 10; end
 
       def page(page)
         page = page.to_i
+        offset = page > 1 ? (page - 1) * page_size : 0
 
-        offset = page > 1 ? (page - 1) * per_page : 0
-
-        wide_count = scoped.count
-        offset = wide_count - per_page if offset > wide_count
-
-        scoped.limit(per_page).offset(offset)
+        scoped.limit(page_size).offset(offset)
       end
     end
   end
@@ -39,8 +35,16 @@ module Mongoid
         options[:limit]
       end
 
+      def per_page(value)
+        options[:limit] = value
+        self
+      end
+
       def page_number
-        offset_value / page_size + 1
+        page_number = offset_value / page_size + 1
+
+        return total_page_count if page_number > total_page_count
+        page_number
       end
 
       def previous_page_count

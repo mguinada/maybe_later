@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe "Sign in" do
   before(:each) do
     User.create!(email: 'user@example.com', password: 'test_password')

@@ -130,6 +130,7 @@ class Reference
   end
 
   class << self
+    def page_size; 8; end
     def with_url(url)
       where(link_id: Link.where(url: Link.normalize_url(url)).first.try(:_id))
     end

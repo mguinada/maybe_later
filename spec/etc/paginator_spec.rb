@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Mongoid::Paginator, "paginates a scope" do
   before :all do
     class TestSubject
@@ -7,6 +5,8 @@ describe Mongoid::Paginator, "paginates a scope" do
       include Mongoid::Paginator
 
       field :value, type: String
+
+      def self.page_size; 5; end
     end
 
     @num_items = 27
@@ -25,12 +25,17 @@ describe Mongoid::Paginator, "paginates a scope" do
     TestSubject.page(1).class.include?(Mongoid::Paginator::Page).should be_true
   end
 
-  #it "defines the page size" do
-  #  TestSubject.page(1).per_page(3).page_size.should be(3)
-  #end
+  it "defines the page size" do
+    TestSubject.page(1).per_page(3).page_size.should be(3)
+  end
 
   it "accounts for the current page number" do
     TestSubject.page(3).page_number.should be(3)
+  end
+
+  it "disregards off bounderies page count" do
+    TestSubject.page(-1).page_number.should be(1)
+    TestSubject.page(7).page_number.should be(6)
   end
 
   it "accounts for previous pages count" do
@@ -45,5 +50,3 @@ describe Mongoid::Paginator, "paginates a scope" do
     TestSubject.page(3).total_page_count.should be(6)
   end
 end
-
-

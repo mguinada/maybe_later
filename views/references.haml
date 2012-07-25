@@ -1,5 +1,5 @@
-#link-list
-  - @references.each do |ref|
+%div{id: "page-#{references.page_number}"}
+  - references.each do |ref|
     .link{id: ref.id}
       %ol
         %li.title
@@ -18,12 +18,10 @@
         %li{class: 'confirm', style: 'display:none;'}
           %span.question Are You Sure?
           %a{href: 'javascript:void(0)', class: 'no'} No
-          %a{href: "/me/delete_link/#{ref.id}.js?page=#{(page = params[:page].to_i) == 0 ? 1 : page}", method: 'post', class: 'yes'} Yes
+          %a{href: "/me/delete_link/#{ref.id}.js", method: 'post', class: 'yes'} Yes
         %li.timestamp
           %span
             - if ref.created_at < 1.day.ago #if today
               = ref.created_at.to_s(:long)
             - else
               %abbr{class: 'timeago', title: ref.created_at}
-  #pages
-    =paginate(@references)

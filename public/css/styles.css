@@ -261,6 +261,29 @@ div.success {
   background-color: #468847;
 }
 
+div#scroll-zone {
+  height: 5;
+}
+
+div#the-end {
+  padding-top: 1em;
+}
+
+div#the-end img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* page ajax loader */
+img#page-ajax-loader {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
 /* Tooltips (twitter bootstrap ripoff) */
 
 .tooltip {

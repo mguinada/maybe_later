@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Reference do
   let!(:subject)   { Reference.new }
   let!(:link)      { Link.create!(url: 'test.example.org') }

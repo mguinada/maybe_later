@@ -1,14 +1,13 @@
 $("div#<%= @reference.id %>").fadeOut(500, function() {
-  $("#link-list").html("<%= j partial(:user) %>");
+  $("div#<%= @reference.id %>").remove();
   $("#flash").html("<%= j partial(:flash, flash: flash) %>");
   $('div#flash > div').fadeIn(3500);
+
+  if($('div#link-list div.link').length < 6) {
+    scroll.nextPage();
+  }
 
   $(function() {
     init();
   });
 });
-
-
-
-
-
