@@ -8,9 +8,9 @@ gem 'mongoid',              '~> 3.0.0'
 gem 'bson_ext',             '~> 1.6.0'
 gem 'bcrypt-ruby',          '~> 3.0.0', require: 'bcrypt'
 gem 'haml',                 '~> 3.1.0'
-gem 'tux'
 gem 'rack-conneg',          '~> 0.1.0'
 gem 'escape_utils',         '~> 0.2.0'
+gem 'tux'
 
 group :development do
   gem 'shotgun'

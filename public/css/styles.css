@@ -106,6 +106,10 @@ ul {
   line-height: 1.5;
 }
 
+.link li.confirm {
+  padding-bottom: 5px;
+}
+
 .link ol.buttons li {
   padding-right: 0.125em;
   display: inline;
@@ -124,7 +128,6 @@ ul {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-top-right: 2px;
-
 }
 
 .link ol.buttons li.timestamp {
