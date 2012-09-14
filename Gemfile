@@ -10,6 +10,7 @@ gem 'bcrypt-ruby',          '~> 3.0.0', require: 'bcrypt'
 gem 'haml',                 '~> 3.1.0'
 gem 'rack-conneg',          '~> 0.1.0'
 gem 'escape_utils',         '~> 0.2.0'
+gem 'rake'
 gem 'tux'
 
 group :development do

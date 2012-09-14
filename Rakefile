@@ -27,26 +27,31 @@ namespace :db do
 
   desc "injects staging data into the database"
   task populate: [:environment, :not_at_prd, :delete] do
+    num_users = 2
+
     users = [User.create!(email: "user@example.com", password: "password")]
-    1.upto 10 do |i|
+    1.upto(num_users - 1) do |i|
       users << User.create!(email: "user#{i}@example.com", password: "password")
     end
 
+    puts 'Added users ...'
     refs_per_user = 50
     links = []
-    1.upto refs_per_user do |i|
+    1.upto(refs_per_user) do |i|
       links << Link.create!(url: "link#{i}.example.org")
     end
 
+    puts 'Added links ...'
     refs = []
     users.each do |user|
-      1.upto refs_per_user do |i|
+      1.upto(refs_per_user) do |i|
         refs << Reference.create!(link: links[i - 1],
                                   user: user,
                                   title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vehicula, leo nec aliquet lobortis",
                                   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vehicula, leo nec aliquet lobortis")
       end
     end
+    puts 'Added refs ...'
     puts "Finished!"
   end
 end
