@@ -29,12 +29,8 @@ RSpec.configure do |config|
   #Tell capybara of our application
   Capybara.app = Application
 
-  Capybara.register_driver :selenium do |app|
-    #Tell selenium driver to resynchronize. This is required with selenium 2.x for ajax testing
-    Capybara::Selenium::Driver.new(app, browser: :firefox, resynchronize: true)
-  end
-
-  Capybara.default_driver = :selenium
+  #Capybara.default_driver = :selenium
+  #Capybara.javascript_driver = :selenium
   #Capybara.default_wait_time = 5
 
   config.include(SessionHelper)

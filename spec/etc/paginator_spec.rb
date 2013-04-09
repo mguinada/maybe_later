@@ -33,7 +33,7 @@ describe Mongoid::Paginator, "paginates a scope" do
     TestSubject.page(3).page_number.should be(3)
   end
 
-  it "disregards off bounderies page count" do
+  it "disregards off boundaries page count" do
     TestSubject.page(-1).page_number.should be(1)
     TestSubject.page(7).page_number.should be(6)
   end
